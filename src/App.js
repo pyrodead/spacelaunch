@@ -1,25 +1,86 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from 'react';
+import './App.scss';
+import jsonRecent from './json/dummy.json';
+import {
+    setInitialized,
+    setRecentLaunches,
+    setUpcomingLaunches,
+} from './actions';
+import {connect} from 'react-redux';
+import {
+    HashRouter,
+    Route,
+    Switch,
+    Redirect,
+} from 'react-router-dom';
+import axios from "axios";
+import Launches from './components/Launches';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    componentDidMount() {
+        const {
+            setRecentLaunchesConnect,
+            setInitializedConnect,
+            setUpcomingLaunchesConnect
+        } = this.props;
+
+        // const recent = axios.get('https://spacelaunchnow.me/api/3.3.0/launch/upcoming?mode=detailed')
+        //     .then((response) => {
+        //         if (response.status === 200) {
+        //             setRecentLaunchesConnect(response.data);
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.error(err);
+        //         setRecentLaunchesConnect(jsonRecent);
+        //     })
+
+        setRecentLaunchesConnect(jsonRecent);
+
+        const upcoming = axios.get('https://spacelaunchnow.me/api/3.3.0/event/upcoming/')
+            .then((response) => {
+                if (response.status === 200) {
+                    setUpcomingLaunchesConnect(response.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setUpcomingLaunchesConnect(jsonRecent);
+            })
+
+        Promise.all([upcoming]).then((resp) => {
+            setInitializedConnect(true);
+        })
+    }
+
+    render() {
+        const {initialized} = this.props;
+
+        if (!initialized) {
+            return null;
+        }
+
+        return (
+            <HashRouter>
+                <Switch>
+                    <Route path="/" exact strict component={Launches}/>
+                    <Redirect to="/"/>
+                </Switch>
+            </HashRouter>
+        );
+
+    }
+
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    initialized: state.initialized,
+});
+
+const mapDispatchToProps = {
+    setRecentLaunchesConnect: setRecentLaunches,
+    setUpcomingLaunchesConnect: setUpcomingLaunches,
+    setInitializedConnect: setInitialized,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
