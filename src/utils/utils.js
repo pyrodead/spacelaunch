@@ -4,6 +4,10 @@ export const getLaunches = () => {
     axios.get('https://spacelaunchnow.me/api/3.3.0/launch/upcoming?mode=detailed').then(response => response).catch(err => console.log(err));
 };
 
+export const getMoreLaunches = (offset) => {
+    return axios.get(`https://spacelaunchnow.me/api/3.3.0/launch/upcoming/?mode=detailed&offset=${offset}`);
+};
+
 export const createDateAsUTC = (date) => {
     const monthNames = ["Jan.", "Frb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
     const dateToConvert = new Date(date);

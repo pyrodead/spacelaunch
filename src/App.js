@@ -1,10 +1,11 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import './App.scss';
-import jsonRecent from './json/dummy.json';
+import jsonLaunches from './json/dummyLaunches.json';
+import jsonEvents from './json/dummyEvents.json';
 import {
     setInitialized,
-    setRecentLaunches,
     setUpcomingLaunches,
+    setUpcomingEvents,
 } from './actions';
 import {connect} from 'react-redux';
 import {
@@ -14,62 +15,64 @@ import {
     Redirect,
 } from 'react-router-dom';
 import axios from "axios";
-import Launches from './components/Launches';
+import HomePage from './components/HomePage';
+import LaunchPage from './components/LaunchPage';
 
-class App extends Component {
-    componentDidMount() {
-        const {
-            setRecentLaunchesConnect,
-            setInitializedConnect,
-            setUpcomingLaunchesConnect
-        } = this.props;
+const App = (props) => {
+    const {
+        setUpcomingLaunchesConnect,
+        setInitializedConnect,
+        setUpcomingEventsConnect,
+    } = props;
 
-        // const recent = axios.get('https://spacelaunchnow.me/api/3.3.0/launch/upcoming?mode=detailed')
-        //     .then((response) => {
-        //         if (response.status === 200) {
-        //             setRecentLaunchesConnect(response.data);
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.error(err);
-        //         setRecentLaunchesConnect(jsonRecent);
-        //     })
-
-        setRecentLaunchesConnect(jsonRecent);
-
-        const upcoming = axios.get('https://spacelaunchnow.me/api/3.3.0/event/upcoming/')
+    useEffect(() => {
+        const launches = axios.get('https://spacelaunchnow.me/api/3.3.0/launch/upcoming?mode=detailed')
             .then((response) => {
                 if (response.status === 200) {
                     setUpcomingLaunchesConnect(response.data);
                 }
             })
             .catch((err) => {
-                console.log(err);
-                setUpcomingLaunchesConnect(jsonRecent);
+                console.error(err);
+                setUpcomingLaunchesConnect(jsonLaunches);
             })
 
-        Promise.all([upcoming]).then((resp) => {
+        const events = axios.get('https://spacelaunchnow.me/api/3.3.0/event/upcoming/')
+            .then((response) => {
+                if (response.status === 200) {
+                    setUpcomingEventsConnect(response.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setUpcomingEventsConnect(jsonEvents);
+            })
+
+        Promise.all([launches, events]).then((resp) => {
             setInitializedConnect(true);
         })
+    }, [
+        setUpcomingLaunchesConnect,
+        setInitializedConnect,
+        setUpcomingEventsConnect,
+    ])
+
+    const {initialized} = props;
+
+    if (!initialized) {
+        return null;
     }
 
-    render() {
-        const {initialized} = this.props;
+    return (
+        <HashRouter>
+            <Switch>
+                <Route path="/" exact strict component={HomePage}/>
+                <Route path="/launch/:launchId" exact component={LaunchPage} />
+                <Redirect to="/" />
+            </Switch>
+        </HashRouter>
+    );
 
-        if (!initialized) {
-            return null;
-        }
-
-        return (
-            <HashRouter>
-                <Switch>
-                    <Route path="/" exact strict component={Launches}/>
-                    <Redirect to="/"/>
-                </Switch>
-            </HashRouter>
-        );
-
-    }
 
 }
 
@@ -78,8 +81,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    setRecentLaunchesConnect: setRecentLaunches,
     setUpcomingLaunchesConnect: setUpcomingLaunches,
+    setUpcomingEventsConnect: setUpcomingEvents,
     setInitializedConnect: setInitialized,
 };
 
