@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Countdown from "react-countdown";
+import { NavLink } from 'react-router-dom';
 
 const Header = (props) => {
     const {
@@ -34,9 +35,10 @@ const Header = (props) => {
 
     return (
         <header className="sl-header">
-            <div className={`logo${timer ? ' -right' : ''}`} />
             <div className="sl-content-wrapper">
                 <div className="sl-header-content">
+                    { isHomePage ? null : <NavLink to={'/'} className="sl-nav-btn">Back to Home</NavLink>}
+                    <div className={`sl-logo${timer ? ' -right' : ''}`} />
                     <div className={`title${isHomePage ? '' : ' -center'}`}>
                         {title}
                     </div>

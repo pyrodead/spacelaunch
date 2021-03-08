@@ -4,7 +4,6 @@ import Header from "./Common/Header";
 import Footer from "./Common/Footer";
 import { setCurrentLaunch } from "../actions";
 import ReactPlayer from 'react-player';
-import GoogleMapReact from 'google-map-react';
 
 const LaunchPage = (props) => {
     const {
@@ -48,47 +47,35 @@ const LaunchPage = (props) => {
                 timer
             />
             <main className="sl-content-wrapper">
-                <div className="sl-main-content">
+                <div className="sl-main-content -launch-page">
                     {
                         currentLaunch.vidURLs.length
                             ? (
                                 <div className="sl-player-container">
-                                    <ReactPlayer url={video} />
+                                    <ReactPlayer width="100%" height="100%" url={video} />
                                 </div>
                             )
                             : null
                     }
                     <div className="sl-title -center">Overview</div>
                     <div className="sl-mission-details">
-                        <span>Mission: {currentLaunch.mission.name}</span><br />
-                        <span>Destination: {currentLaunch.mission.orbit}</span>
-                        <div>
-                            <div className="sl-date -features -gradient">{currentLaunch.pad?.name}</div>
-                            <div className="sl-date -features -gradient">{currentLaunch.mission?.orbit}</div>
-                            <div className="sl-date -features -gradient">Probability: {currentLaunch.probability}</div><br />
-                            <div className="sl-date -features">{currentLaunch.pad?.location?.name}</div>
-                            <div className="sl-subtitle -center">
-                                {currentLaunch.mission?.description}
-                            </div>
+                        {currentLaunch.mission?.name && <div className="detail">Mission: {currentLaunch.mission.name}</div>}
+                        {currentLaunch.mission?.orbit && <div className="detail -indent-bottom">Destination: {currentLaunch.mission.orbit}</div>}
+                        {currentLaunch.pad?.name && <div className="sl-date -features -gradient">{currentLaunch.pad.name}</div>}
+                        {currentLaunch.mission?.orbit && <div className="sl-date -features -gradient">{currentLaunch.mission.orbit}</div>}
+                        {currentLaunch.probability && <div className="sl-date -features -gradient">Probability: {currentLaunch.probability}</div>}
+                        {currentLaunch.pad?.location?.name && <><br /><div className="sl-date -features -last-feature">{currentLaunch.pad.location.name}</div></>}
+                        <div className="sl-subtitle -center -indent-bottom">
+                            {currentLaunch.mission?.description}
                         </div>
                         <div className="sl-title -center">{currentLaunch.rocket.configuration.name}</div>
-                        <span>Family: {currentLaunch.rocket.configuration.family}</span><br />
-                        <span>Variant: {currentLaunch.rocket.configuration.variant}</span>
-                        <div className="sl-subtitle -center">
+                        {currentLaunch.rocket?.configuration?.family && <div className="detail">Family: {currentLaunch.rocket.configuration.family}</div>}
+                        {currentLaunch.rocket?.configuration?.variant && <div className="detail">Variant: {currentLaunch.rocket.configuration.variant}</div>}
+                        <div className="sl-subtitle -center -indent-top">
                             {currentLaunch.rocket.configuration.description}
                         </div>
                         <button className="sl-btn">See Rocket Details</button>
                         <div style={{ height: '50vh', width: '100%' }} className="sl-map-container">
-                            <GoogleMapReact
-                                defaultCenter={defaultLoc. center}
-                                defaultZoom={defaultLoc.zoom}
-                            >
-                                <AnyReactComponent
-                                    text="Marker"
-                                    lat={13.7199}
-                                    lng={80.2304}
-                                />
-                            </GoogleMapReact>
                         </div>
                     </div>
                 </div>

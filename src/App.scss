@@ -25,34 +25,41 @@ body {
     background-color: #111;
     opacity: 0.2;
   }
+}
 
-  > .logo {
-    position: absolute;
-    top: 46px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-image: url('./images/logo.svg');
-    background-repeat: no-repeat;
-    width: 96px;
-    height: 108px;
-    z-index: 10;
+.sl-nav-btn {
+  position: absolute;
+  left: 0;
+  top: 40px;
+}
 
-    &.-right {
-      left: auto;
-      right: 40px;
-    }
+.sl-logo {
+  position: absolute;
+  top: 46px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('./images/logo.svg');
+  background-repeat: no-repeat;
+  width: 96px;
+  height: 108px;
+  z-index: 10;
+
+  &.-right {
+    left: auto;
+    right: 0;
   }
 }
 
 .sl-header-content {
   padding: 300px 20px;
+  position: relative;
 
   @include respond(mobile-large) {
     padding: 300px 100px;
   }
 
   @include respond(desktop) {
-    padding: 400px 118px;
+    padding: 350px 118px;
   }
 
   > .title {
@@ -97,12 +104,24 @@ body {
     margin: 0 auto;
   }
 
+  &.-indent-top {
+    margin-top: 20px;
+  }
+
   &.-non-home {
     color: #fff;
-    font-size: 26px;
+    font-size: 16px;
     font-weight: 700;
     max-width: none;
     text-align: center;
+
+    @include respond(desktop) {
+      font-size: 26px;
+    }
+  }
+
+  &.-indent-bottom {
+    margin-bottom: 100px;
   }
 }
 
@@ -177,6 +196,16 @@ body {
 
   @include respond(desktop) {
     padding: 128px 118px;
+  }
+
+  &.-launch-page {
+    @include respond(mobile-large) {
+      padding-top: 100px;
+    }
+
+    @include respond(desktop) {
+      padding-top: 100px;
+    }
   }
 }
 
@@ -318,7 +347,14 @@ body {
     width: auto;
     text-transform: uppercase;
     max-width: none;
+    margin-top: 0;
+    margin-bottom: 20px;
     margin-right: 10px;
+  }
+
+  &.-last-feature {
+    margin-top: 0;
+    margin-bottom: 30px;
   }
 
   &.-center-offset {
@@ -423,32 +459,58 @@ body {
 }
 
 .sl-timer {
-  width: 780px;
-  height: 182px;
+  width: 280px;
+  height: 100px;
   background-color: #4A00E0;
   text-align: center;
   color: #fff;
   position: relative;
   margin: 40px auto;
 
+  @include respond(desktop) {
+    width: 780px;
+    height: 182px;
+  }
+
   > .time {
     position: absolute;
-    font-size: 78px;
+    font-size: 26px;
     font-weight: 800;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     top: 50%;
     width: 100%;
     font-family: helvetica, monospace;
+
+    @include respond(desktop) {
+      font-size: 78px;
+    }
+
   }
 }
+.sl-player-container {
+  max-width: 100%;
+  width: 1180px;
+  padding-bottom: 59%;
+  margin-bottom: 100px;
+  position: relative;
+  overflow: hidden;
 
-.sl-player-container > div {
-  margin: 0 auto;
+  > div {
+    position: absolute;
+  }
 }
 
 .sl-mission-details {
   text-align: center;
+
+  > .detail {
+    margin-bottom: 10px;
+
+    &.-indent-bottom {
+      margin-bottom: 30px;
+    }
+  }
 }
 
 .sl-map-container {
