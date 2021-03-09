@@ -19,4 +19,4 @@ export const createDateAsUTC = (date) => {
     const ampm = (hours >= 12) ? "p.m." : "a.m.";
 
     return `${monthNames[dateToConvert.getUTCMonth()]} ${dateToConvert.getUTCDate()}, ${dateToConvert.getUTCFullYear()}, ${hours}:${dateToConvert.getUTCMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})} ${ampm}`;
-}
+};

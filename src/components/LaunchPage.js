@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Header from "./Common/Header";
 import Footer from "./Common/Footer";
+import LaunchDetails from './LaunchDetails';
 import { setCurrentLaunch } from "../actions";
 import ReactPlayer from 'react-player';
 import GMap from "./Gmap";
@@ -51,28 +52,10 @@ export const LaunchPageContent = (props) => {
                             )
                             : null
                     }
-                    <div className="sl-title -center">Overview</div>
-                    <div className="sl-mission-details">
-                        {currentLaunch.mission?.name && <div className="detail">Mission: {currentLaunch.mission.name}</div>}
-                        {currentLaunch.mission?.orbit && <div className="detail -indent-bottom">Destination: {currentLaunch.mission.orbit}</div>}
-                        {currentLaunch.pad?.name && <div className="sl-chip -features -gradient">{currentLaunch.pad.name}</div>}
-                        {currentLaunch.mission?.orbit && <div className="sl-chip -features -gradient">{currentLaunch.mission.orbit}</div>}
-                        {currentLaunch.probability && <div className="sl-chip -features -gradient">Probability: {currentLaunch.probability}</div>}
-                        {currentLaunch.pad?.location?.name && <><br /><div className="sl-chip -features -last-feature">{currentLaunch.pad.location.name}</div></>}
-                        <div className="sl-subtitle -center -indent-bottom">
-                            {currentLaunch.mission?.description}
-                        </div>
-                        <div className="sl-title -center">{currentLaunch.rocket?.configuration?.name}</div>
-                        {currentLaunch.rocket?.configuration?.family && <div className="detail">Family: {currentLaunch.rocket.configuration.family}</div>}
-                        {currentLaunch.rocket?.configuration?.variant && <div className="detail">Variant: {currentLaunch.rocket.configuration.variant}</div>}
-                        <div className="sl-subtitle -center -indent-top">
-                            {currentLaunch.rocket.configuration.description}
-                        </div>
-                        <button className="sl-btn">See Rocket Details</button>
-                    </div>
+                    <LaunchDetails currentLaunch={currentLaunch} />
                     <div className="sl-map-container">
                         <GMap
-                            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBKAjp4GhQCnIpDfDUGWDLinkvQYPcvI9w&v=3.exp&libraries=geometry,drawing,places`}
+                            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=&v=3.exp&libraries=geometry,drawing,places`}
                             loadingElement={<div style={{ height: `100%` }} />}
                             containerElement={<div style={{ height: `100%` }} />}
                             mapElement={<div style={{ height: `100%` }} />}

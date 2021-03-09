@@ -43,11 +43,4 @@ describe('Test utils', () => {
         expect(createDateAsUTC(payload)).not.toEqual(expected);
         expect(createDateAsUTC(payload2)).toEqual(expected);
     });
-
-    it('getNumberOfSlides', () => {
-        expect(getNumberOfSlides(true, false)).toEqual(2);
-        expect(getNumberOfSlides(false, false)).toEqual(1);
-        expect(getNumberOfSlides(true, true)).toEqual(3);
-        expect(getNumberOfSlides(false, true)).toEqual(3);
-    });
 })

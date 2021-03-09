@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import Carousel from 'react-elastic-carousel';
 import PropTypes from "prop-types";
-import { LaunchPageContent } from "./LaunchPage";
 
 const Shifter = (props) => {
     const breakPoints = [

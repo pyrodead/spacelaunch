@@ -8,17 +8,17 @@ import {
 } from 'react-google-maps';
 
 const GMap = (props) => {
-    const[info, setInfo] = useState(null)
+    const [info, setInfo] = useState(null)
 
     return (
         <GoogleMap
             defaultCenter={{ lat:40.712776, lng:-74.005974 }}
             defaultZoom={11}
-            center={props.position}
+            center={ props.position }
         >
             <Marker
-                key={props.key}
-                position={props.position}
+                key={ props.key }
+                position={ props.position }
                 onClick={() => setInfo(1)}
             />
 
@@ -26,12 +26,12 @@ const GMap = (props) => {
                 info
                     ? (
                         <InfoWindow
-                            position={props.position}
+                            position={ props.position }
                             onCloseClick={() => setInfo(null)}
 
                         >
-                            <div style={{color: 'black'}}>
-                                {props.name}
+                            <div style={{ color: 'black' }}>
+                                { props.name }
                             </div>
                         </InfoWindow>
                     )

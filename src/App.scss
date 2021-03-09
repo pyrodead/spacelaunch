@@ -163,10 +163,6 @@ body {
       font-size: 26px;
     }
   }
-
-  &.-indent-bottom {
-    margin-bottom: 100px;
-  }
 }
 
 .btn-container {
@@ -183,14 +179,21 @@ body {
   display: inline-block;
   font-size: 16px;
   font-weight: 700;
-  margin-top: 50px;
   outline: none;
   padding: 20px 46px;
   text-align: center;
 
+  @include respond(mobile-large desktop) {
+    margin-top: 50px;
+  }
+
   @include respond(desktop) {
     font-size: 20px;
     padding: 30px 80px;
+  }
+
+  &.-indent-top {
+    margin-top: 50px;
   }
 
   &.-small {
@@ -536,12 +539,23 @@ body {
 .sl-mission-details {
   text-align: center;
 
-  > .detail {
-    margin-bottom: 10px;
+  > .mission-overview {
+    margin-bottom: 20px;
+  }
 
-    &.-indent-bottom {
-      margin-bottom: 30px;
+  > .mission-description {
+    margin-bottom: 50px;
+
+    @include respond(mobile-large desktop) {
+      margin-bottom: 100px;
     }
+  }
+
+  > .rocket-overview {
+  }
+
+  .detail {
+    margin-bottom: 10px;
   }
 }
 

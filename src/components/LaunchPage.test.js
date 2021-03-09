@@ -278,7 +278,7 @@ describe('should render a <LaunchPage />', () => {
     it('should test null return', () => {
         wrapper.setProps({ match: { params: { launchId: '123' } } })
 
-        expect(wrapper.type()).toEqual(null);
+        expect(wrapper.find('.sl-warning')).toHaveLength(1);
     });
 
     it('should render video container', () => {
