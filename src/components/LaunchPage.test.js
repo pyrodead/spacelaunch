@@ -4,8 +4,6 @@ import { LaunchPageContent } from "./LaunchPage";
 import Header from "./Common/Header";
 import Footer from "./Common/Footer";
 
-jest.mock('react-player');
-
 const upcomingLaunches = {
     results: [
         {
