@@ -7,18 +7,21 @@ import {
     setUpcomingLaunches,
     setUpcomingEvents,
 } from './actions';
-import {connect} from 'react-redux';
+import {
+    getUpcomingLaunches,
+    getRecentEvents,
+} from './utils/utils'
+import { connect } from 'react-redux';
 import {
     HashRouter,
     Route,
     Switch,
     Redirect,
 } from 'react-router-dom';
-import axios from "axios";
 import HomePage from './components/HomePage';
 import LaunchPage from './components/LaunchPage';
 
-const App = (props) => {
+export const AppContent = (props) => {
     const {
         setUpcomingLaunchesConnect,
         setInitializedConnect,
@@ -26,25 +29,28 @@ const App = (props) => {
     } = props;
 
     useEffect(() => {
-        const launches = axios.get('https://spacelaunchnow.me/api/3.3.0/launch/upcoming?mode=detailed')
+        console.log(1);
+        const launches = getUpcomingLaunches()
             .then((response) => {
                 if (response.status === 200) {
+                    console.log(4);
                     setUpcomingLaunchesConnect(response.data);
                 }
             })
             .catch((err) => {
+                console.log(5);
                 console.error(err);
                 setUpcomingLaunchesConnect(jsonLaunches);
             })
 
-        const events = axios.get('https://spacelaunchnow.me/api/3.3.0/event/upcoming/')
+        const events = getRecentEvents()
             .then((response) => {
                 if (response.status === 200) {
                     setUpcomingEventsConnect(response.data);
                 }
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 setUpcomingEventsConnect(jsonEvents);
             })
 
@@ -72,8 +78,6 @@ const App = (props) => {
             </Switch>
         </HashRouter>
     );
-
-
 }
 
 const mapStateToProps = (state) => ({
@@ -86,4 +90,4 @@ const mapDispatchToProps = {
     setInitializedConnect: setInitialized,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(AppContent);

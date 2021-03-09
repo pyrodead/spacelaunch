@@ -1,6 +1,6 @@
-import { Suspense } from "react";
 import { connect } from "react-redux";
 import { NavLink } from 'react-router-dom';
+import jsonMoreLaunches from '../json/dummyMoreLaunches.json';
 import { createDateAsUTC, getMoreLaunches } from "../utils/utils";
 import {
     incrementLaunchesOffset,
@@ -8,21 +8,20 @@ import {
 } from "../actions";
 import placeholder2 from "../images/placeholder2.png";
 
-const UpcomingLaunches = (props) => {
+export const UpcomingLaunchesContent = (props) => {
     const {
         upcomingLaunches,
         incrementUpcomingLaunchesConnect,
         incrementLaunchesOffsetConnect,
         pager,
     } = props;
+
     const showLoadMoreBtn = upcomingLaunches.results.length < upcomingLaunches.count;
-    console.log(upcomingLaunches.results.length);
-    console.log(upcomingLaunches.count);
 
     const handleLoadMore = () => {
         getMoreLaunches(pager.launchesOffset).then((response) => {
-           if(response.status >= 200 && response.status < 300) {
-               incrementUpcomingLaunchesConnect(response.data);
+            if(response.status >= 200 && response.status < 300) {
+                incrementUpcomingLaunchesConnect(response.data);
 
                if (showLoadMoreBtn) {
                    incrementLaunchesOffsetConnect();
@@ -31,8 +30,8 @@ const UpcomingLaunches = (props) => {
 
         }).catch((err) => {
             console.error(err);
+            incrementUpcomingLaunchesConnect(jsonMoreLaunches);
         });
-        // incrementUpcomingLaunchesConnect(jsonMoreLaunches);
     }
 
     return (
@@ -70,11 +69,9 @@ const UpcomingLaunches = (props) => {
                     ))
                 }
             </div>
-            <Suspense fallback={<div>Loading</div>}>
-                <div className="btn-container">
-                    <button className="sl-btn -small" onClick={handleLoadMore}>Load More</button>
-                </div>
-            </Suspense>
+            <div className="btn-container">
+                <button className="sl-btn -small" onClick={handleLoadMore}>Load More</button>
+            </div>
         </div>
     );
 }
@@ -89,4 +86,4 @@ const mapDispatchToState = {
     incrementLaunchesOffsetConnect: incrementLaunchesOffset,
 }
 
-export default connect(mapStateToProps, mapDispatchToState)(UpcomingLaunches);
+export default connect(mapStateToProps, mapDispatchToState)(UpcomingLaunchesContent);

@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
-import {createDateAsUTC, getNumberOfSlides} from "../utils/utils";
+import { createDateAsUTC, getNumberOfSlides } from "../utils/utils";
 import placeholder from "../images/placeholder1.png";
 import { useMediaQuery } from "@material-ui/core";
 
-const UpcomingEvents = (props) => {
+export const UpcomingEventsContent = (props) => {
     const { upcomingEvents } = props;
+
     const isDesktop = useMediaQuery('(min-width:1024px)');
     const isMobileMedium =  useMediaQuery('(min-width:420px)');
     const slidesQuantity = getNumberOfSlides(isMobileMedium, isDesktop);
@@ -35,4 +36,4 @@ const mapStateToProps = (state) => ({
     upcomingEvents: state.upcomingEvents,
 })
 
-export default connect(mapStateToProps)(UpcomingEvents);
+export default connect(mapStateToProps)(UpcomingEventsContent);

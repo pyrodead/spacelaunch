@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Countdown from "react-countdown";
 import { NavLink } from 'react-router-dom';
 
-const Header = (props) => {
+export const HeaderContent = (props) => {
     const {
         title,
         subtitle,
@@ -69,5 +69,6 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => ({
     currentLaunch: state.currentLaunch,
-})
-export default connect(mapStateToProps)(Header);
+});
+
+export default connect(mapStateToProps)(HeaderContent);

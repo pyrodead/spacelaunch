@@ -5,7 +5,7 @@ import Footer from "./Common/Footer";
 import { setCurrentLaunch } from "../actions";
 import ReactPlayer from 'react-player';
 
-const LaunchPage = (props) => {
+export const LaunchPageContent = (props) => {
     const {
         currentLaunch,
         match: { params: { launchId } },
@@ -29,16 +29,6 @@ const LaunchPage = (props) => {
     }
 
     const video = currentLaunch.vidURLs.find(a =>a.includes("youtube"));
-
-    const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-    const defaultLoc = {
-        center: {
-            lat: 13.7199,
-            lng: 80.2304
-        },
-        zoom: 11
-    };
 
     return (
         <>
@@ -68,15 +58,13 @@ const LaunchPage = (props) => {
                         <div className="sl-subtitle -center -indent-bottom">
                             {currentLaunch.mission?.description}
                         </div>
-                        <div className="sl-title -center">{currentLaunch.rocket.configuration.name}</div>
+                        <div className="sl-title -center">{currentLaunch.rocket?.configuration?.name}</div>
                         {currentLaunch.rocket?.configuration?.family && <div className="detail">Family: {currentLaunch.rocket.configuration.family}</div>}
                         {currentLaunch.rocket?.configuration?.variant && <div className="detail">Variant: {currentLaunch.rocket.configuration.variant}</div>}
                         <div className="sl-subtitle -center -indent-top">
                             {currentLaunch.rocket.configuration.description}
                         </div>
                         <button className="sl-btn">See Rocket Details</button>
-                        <div style={{ height: '50vh', width: '100%' }} className="sl-map-container">
-                        </div>
                     </div>
                 </div>
             </main>
@@ -94,4 +82,4 @@ const mapDispatchToState = {
     setCurrentLaunchConnect: setCurrentLaunch,
 }
 
-export default connect(mapStateToProps, mapDispatchToState)(LaunchPage);
+export default connect(mapStateToProps, mapDispatchToState)(LaunchPageContent);

@@ -1,11 +1,17 @@
 import axios from 'axios';
 
-export const getLaunches = () => {
-    axios.get('https://spacelaunchnow.me/api/3.3.0/launch/upcoming?mode=detailed').then(response => response).catch(err => console.log(err));
+export const getUpcomingLaunches = () => {
+    console.log(2);
+    return axios.get('https://spacelaunchnow.me/api/3.3.0/launch/upcoming?mode=detailed');
 };
 
 export const getMoreLaunches = (offset) => {
     return axios.get(`https://spacelaunchnow.me/api/3.3.0/launch/upcoming/?mode=detailed&offset=${offset}`);
+};
+
+export const getRecentEvents = () => {
+    console.log(3);
+    return axios.get('https://spacelaunchnow.me/api/3.3.0/event/upcoming/');
 };
 
 export const createDateAsUTC = (date) => {
@@ -23,6 +29,8 @@ export const getNumberOfSlides = (isMobileMedium, isDesktop) => {
         return 3;
     } else if (isMobileMedium) {
         return 2;
+    } else if (isDesktop) {
+        return 3;
     }
 
     return 1;
