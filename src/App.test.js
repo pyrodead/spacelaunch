@@ -1,17 +1,9 @@
 import React from "react";
-import { shallow, mount, render } from 'enzyme';
-import { act } from '@testing-library/react';
+import { shallow, mount } from 'enzyme';
 import { AppContent } from "./App";
 import axios from "axios";
 import { getUpcomingLaunches, getRecentEvents } from './utils/utils';
-
-// jest.mock('./utils/utils', () => (
-//     {
-//         ...(jest.requireActual('./utils/utils')),
-//         getUpcomingLaunches: jest.fn(),
-//         // getRecentEvents: jest.fn().mockImplementationOnce(() => Promise.resolve({status: 200})),
-//     }
-// ));
+import { Route, Redirect } from "react-router-dom";
 
 jest.mock('axios');
 
@@ -20,6 +12,7 @@ describe('should render a HomePage', () => {
         setUpcomingLaunchesConnect: jest.fn(),
         setInitializedConnect: jest.fn(),
         setUpcomingEventsConnect: jest.fn(),
+        initialized: false,
     };
     let wrapper;
 
@@ -31,7 +24,7 @@ describe('should render a HomePage', () => {
         expect(wrapper.exists()).toBeTruthy();
     })
 
-    it('should test useEffect', async() => {
+    it('should test useEffect with promise.resolve', async() => {
         const setUpcomingLaunchesConnectActionCreator = defaultProps.setUpcomingLaunchesConnect;
         const setUpcomingEventsConnectActionCreator = defaultProps.setUpcomingEventsConnect;
         const setInitializedConnectConnectActionCreator = defaultProps.setInitializedConnect;
@@ -46,7 +39,26 @@ describe('should render a HomePage', () => {
         expect(setUpcomingEventsConnectActionCreator).toHaveBeenCalled();
         await Promise.all([resp1, resp2]);
         expect(setInitializedConnectConnectActionCreator).toHaveBeenCalled();
-
     })
 
+    it('should test useEffect with promise.reject', async() => {
+        const setUpcomingLaunchesConnectActionCreator = defaultProps.setUpcomingLaunchesConnect;
+        const setUpcomingEventsConnectActionCreator = defaultProps.setUpcomingEventsConnect;
+
+        jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+        axios.get.mockImplementation(() => Promise.reject(new Error('error message')))
+        wrapper = mount(<AppContent {...defaultProps} />);
+
+        await expect(getUpcomingLaunches()).rejects.toThrow('error message');
+        expect(setUpcomingLaunchesConnectActionCreator).toHaveBeenCalled();
+        await expect(getRecentEvents()).rejects.toThrow('error message');
+        expect(setUpcomingEventsConnectActionCreator).toHaveBeenCalled();
+    })
+
+    it('test return with initialized true', () => {
+        wrapper.setProps({ initialized: true })
+
+        expect(wrapper.find(Route)).toHaveLength(2);
+        expect(wrapper.find(Redirect)).toHaveLength(1);
+    });
 });

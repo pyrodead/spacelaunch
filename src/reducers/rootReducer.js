@@ -17,8 +17,6 @@ const rootReducer = (state = initState, action) => {
             return {...state, currentLaunch: action.payload }
         case 'INCREMENT_LAUNCHES_OFFSET' :
             return {...state, pager: { launchesOffset: state.pager.launchesOffset += 10 } }
-        case 'SET_LAUNCHES_OFFSET' :
-            return {...state, pager: { launchesOffset: action.payload } }
         case 'SET_UPCOMING_EVENTS' :
             return {...state, upcomingEvents: action.payload}
         case 'SET_INITIALIZED' :

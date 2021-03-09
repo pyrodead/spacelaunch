@@ -29,19 +29,15 @@ export const AppContent = (props) => {
     } = props;
 
     useEffect(() => {
-        console.log(1);
         const launches = getUpcomingLaunches()
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(4);
                     setUpcomingLaunchesConnect(response.data);
                 }
             })
-            .catch((err) => {
-                console.log(5);
-                console.error(err);
+            .catch(() => {
                 setUpcomingLaunchesConnect(jsonLaunches);
-            })
+            });
 
         const events = getRecentEvents()
             .then((response) => {
@@ -49,19 +45,18 @@ export const AppContent = (props) => {
                     setUpcomingEventsConnect(response.data);
                 }
             })
-            .catch((err) => {
-                console.error(err);
+            .catch(() => {
                 setUpcomingEventsConnect(jsonEvents);
-            })
+            });
 
-        Promise.all([launches, events]).then((resp) => {
-            setInitializedConnect(true);
-        })
-    }, [
-        setUpcomingLaunchesConnect,
-        setInitializedConnect,
-        setUpcomingEventsConnect,
-    ])
+        Promise.all([launches, events])
+            .then((resp) => {
+                setInitializedConnect(true);
+            })
+            .catch(() => {
+                setInitializedConnect(true);
+            });
+    })
 
     const {initialized} = props;
 

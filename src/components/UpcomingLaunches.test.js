@@ -1,9 +1,9 @@
 import React from "react";
-import {mount, shallow} from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { UpcomingLaunchesContent } from "./UpcomingLaunches";
 import axios from "axios";
 import { HashRouter } from "react-router-dom";
-import {getMoreLaunches} from "../utils/utils";
+import { getMoreLaunches } from "../utils/utils";
 
 jest.mock('axios');
 
@@ -172,7 +172,7 @@ describe('should render a <UpcomingLaunches />', () => {
         expect(wrapper.find('.event')).toHaveLength(1);
     });
 
-    it('test load more', async() => {
+    it('test load more button', async() => {
         const incrementUpcomingLaunchesConnectActionCreator = defaultProps.incrementUpcomingLaunchesConnect;
         const incrementLaunchesOffsetConnectActionCreator = defaultProps.incrementLaunchesOffsetConnect;
 
@@ -188,5 +188,21 @@ describe('should render a <UpcomingLaunches />', () => {
         await getMoreLaunches();
         expect(incrementUpcomingLaunchesConnectActionCreator).toHaveBeenCalled();
         expect(incrementLaunchesOffsetConnectActionCreator).toHaveBeenCalled();
+    });
+
+    it('test load more button with api error', async() => {
+        const incrementUpcomingLaunchesConnectActionCreator = defaultProps.incrementUpcomingLaunchesConnect;
+
+        axios.get.mockImplementation(() => Promise.reject(new Error('error message')))
+        wrapper = mount(
+            <HashRouter>
+                <UpcomingLaunchesContent {...defaultProps} />
+            </HashRouter>
+        );
+
+        wrapper.find('.sl-btn').simulate('click');
+
+        await expect(getMoreLaunches()).rejects.toThrow('error message');
+        expect(incrementUpcomingLaunchesConnectActionCreator).toHaveBeenCalled();
     });
 });

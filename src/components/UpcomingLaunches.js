@@ -28,8 +28,7 @@ export const UpcomingLaunchesContent = (props) => {
                }
            }
 
-        }).catch((err) => {
-            console.error(err);
+        }).catch(() => {
             incrementUpcomingLaunchesConnect(jsonMoreLaunches);
         });
     }
