@@ -20,6 +20,7 @@ import {
 } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import LaunchPage from './components/LaunchPage';
+import PropTypes from "prop-types";
 
 export const AppContent = (props) => {
     const {
@@ -29,6 +30,7 @@ export const AppContent = (props) => {
     } = props;
 
     useEffect(() => {
+        // Added dummy json, API is down 90% of the time
         const launches = getUpcomingLaunches()
             .then((response) => {
                 if (response.status === 200) {
@@ -74,6 +76,12 @@ export const AppContent = (props) => {
         </HashRouter>
     );
 }
+
+AppContent.propTypes = {
+    setUpcomingLaunchesConnect: PropTypes.func.isRequired,
+    setInitializedConnect: PropTypes.func.isRequired,
+    setUpcomingEventsConnect: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
     initialized: state.initialized,

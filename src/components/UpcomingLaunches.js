@@ -7,6 +7,7 @@ import {
     incrementUpcomingLaunches,
 } from "../actions";
 import placeholder2 from "../images/placeholder2.png";
+import PropTypes from "prop-types";
 
 export const UpcomingLaunchesContent = (props) => {
     const {
@@ -60,7 +61,7 @@ export const UpcomingLaunchesContent = (props) => {
                             }
                             <div className="sl-events-title -center-offset">
                                 <NavLink to={`/launch/${item.id}`} className="sl-link">
-                                    <div className="sl-date -center-offset -gradient">{createDateAsUTC(item.net)}</div>
+                                    <div className="sl-chip -center-offset -gradient">{createDateAsUTC(item.net)}</div>
                                     {item.name}
                                 </NavLink>
                             </div>
@@ -74,6 +75,12 @@ export const UpcomingLaunchesContent = (props) => {
         </div>
     );
 }
+UpcomingLaunchesContent.propTypes = {
+    upcomingLaunches: PropTypes.object.isRequired,
+    incrementUpcomingLaunchesConnect: PropTypes.func.isRequired,
+    incrementLaunchesOffsetConnect: PropTypes.func.isRequired,
+    pager: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => ({
     upcomingLaunches: state.upcomingLaunches,

@@ -1,36 +1,33 @@
 import { connect } from "react-redux";
-import { createDateAsUTC, getNumberOfSlides } from "../utils/utils";
+import { createDateAsUTC } from "../utils/utils";
 import placeholder from "../images/placeholder1.png";
-import { useMediaQuery } from "@material-ui/core";
+import Shifter from './Shifter';
+import PropTypes from "prop-types";
 
 export const UpcomingEventsContent = (props) => {
     const { upcomingEvents } = props;
 
-    const isDesktop = useMediaQuery('(min-width:1024px)');
-    const isMobileMedium =  useMediaQuery('(min-width:420px)');
-    const slidesQuantity = getNumberOfSlides(isMobileMedium, isDesktop);
-
     return (
         <div className="sl-shifter-container">
-            <div className="sl-title -left">Upcoming Events</div>
-            <div className="sl-arrows-container">
-                <span className="arrow -left" />
-                <span className="arrow -right" />
-            </div>
-            <ul className="sl-shifter">
+            <div className="sl-title -left -indent-left">Upcoming Events</div>
+            <Shifter>
                 {
-                    upcomingEvents.results.slice(0, slidesQuantity).map((item) => (
-                        <li key={item.id} className="sl-shifter-item">
-                            {item.feature_image  ? <div className="sl-image-container"><img src={item.feature_image} className="image" alt={item.name} /></div> : <div className="sl-image-container"><img src={placeholder} className="image" alt="placeholder"/>}</div>}
-                            <div className="sl-date">{createDateAsUTC(item.date)}</div>
+                    upcomingEvents.results.map((item) => (
+                        <div key={item.id} className="sl-shifter-item">
+                            {item.feature_image  ? <div className="sl-image-container"><img src={item.feature_image} className="image" alt={item.name} draggable="false" /></div> : <div className="sl-image-container"><img src={placeholder} className="image" alt="placeholder" draggable="false"/>}</div>}
+                            <div className="sl-chip">{createDateAsUTC(item.date)}</div>
                             <div className="sl-events-title">{item.name}</div>
-                        </li>
+                        </div>
                     ))
                 }
-            </ul>
+            </Shifter>
         </div>
     );
 }
+
+UpcomingEventsContent.propTypes = {
+    upcomingEvents: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => ({
     upcomingEvents: state.upcomingEvents,

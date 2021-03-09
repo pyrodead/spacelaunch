@@ -20,16 +20,3 @@ export const createDateAsUTC = (date) => {
 
     return `${monthNames[dateToConvert.getUTCMonth()]} ${dateToConvert.getUTCDate()}, ${dateToConvert.getUTCFullYear()}, ${hours}:${dateToConvert.getUTCMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})} ${ampm}`;
 }
-
-
-export const getNumberOfSlides = (isMobileMedium, isDesktop) => {
-    if (isMobileMedium && isDesktop) {
-        return 3;
-    } else if (isMobileMedium) {
-        return 2;
-    } else if (isDesktop) {
-        return 3;
-    }
-
-    return 1;
-}

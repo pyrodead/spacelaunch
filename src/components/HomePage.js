@@ -10,7 +10,7 @@ const HomePage = () => (
             subtitle="View all launches available - including launches from the past and utilize powerful search filters."
             isHomePage
         />
-        <main className="sl-content-wrapper">
+        <main className="sl-content-wrapper" id="scrollfix">
             <div className="sl-main-content">
                 <UpcomingEvents />
                 <UpcomingLaunches />

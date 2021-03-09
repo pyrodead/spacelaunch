@@ -3,50 +3,94 @@
 
 body {
   background-color: #181B48;
+  color: #fff;
   font-family: 'Montserrat', sans-serif;
   margin: 0;
-  color: #fff;
 }
 
 .sl-header {
   background-image: url('./images/header.jpg');
-  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  background-size: cover;
   position: relative;
   width: 100%;
 
   &::before {
+    background-color: #111;
     content: '';
+    height: 100px;
     left: 0;
+    opacity: 0.2;
     position: absolute;
     width: 100%;
-    height: 100px;
-    background-color: #111;
-    opacity: 0.2;
   }
 }
 
 .sl-nav-btn {
-  position: absolute;
+  color: #f1ebff;
+  font-size: 16px;
+  font-weight: 600;
   left: 0;
-  top: 40px;
+  padding-left: 108px;
+  position: absolute;
+  text-decoration: none;
+  top: 42px;
+
+  &::before {
+    background-image: url('./images/arrow-left.svg');
+    background-size: cover;
+    content: '';
+    height: 14px;
+    left: 66px;
+    position: absolute;
+    top: 2px;
+    width: 28px;
+  }
+
+  @include respond(mobile-small) {
+    padding-left: 60px;
+
+    &::before {
+      left: 20px;
+    }
+  }
+
+  @include respond(mobile-large desktop) {
+    font-size: 26px;
+    top: 32px;
+
+    &::before {
+      top: 8px;
+    }
+  }
 }
 
 .sl-logo {
-  position: absolute;
-  top: 46px;
-  left: 50%;
-  transform: translateX(-50%);
   background-image: url('./images/logo.svg');
   background-repeat: no-repeat;
-  width: 96px;
+  background-size: cover;
   height: 108px;
+  left: 50%;
+  position: absolute;
+  top: 46px;
+  transform: translateX(-50%);
+  width: 96px;
   z-index: 10;
 
   &.-right {
+    height: 54px;
     left: auto;
-    right: 0;
+    right: 8px;
+    top: 72px;
+    width: 48px;
+
+    @include respond(mobile-large desktop) {
+      height: 108px;
+      right: 60px;
+      top: 46px;
+      width: 96px;
+    }
   }
 }
 
@@ -64,8 +108,8 @@ body {
 
   > .title {
     color: #fff;
-    font-weight: 800;
     font-size: 22px;
+    font-weight: 800;
 
     @include respond(mobile-large) {
       font-size: 44px;
@@ -89,19 +133,19 @@ body {
 
 .sl-subtitle {
   color: #C0C0C0;
-  font-weight: 400;
   font-size: 14px;
+  font-weight: 400;
   line-height: 28px;
-  max-width: 594px;
   margin-top: 30px;
+  max-width: 594px;
 
   @include respond(desktop) {
     font-size: 17px;
   }
 
   &.-center {
-    max-width: 860px;
     margin: 0 auto;
+    max-width: 860px;
   }
 
   &.-indent-top {
@@ -130,23 +174,23 @@ body {
 }
 
 .sl-btn {
-  padding: 20px 46px;
   appearance: none;
+  background-image: linear-gradient(to right, #8E2DE2 0%, #4A00E0 100%);
+  border-radius: 50px;
   border: none;
+  color: #fff;
   cursor: pointer;
   display: inline-block;
-  outline: none;
-  background-image: linear-gradient(to right, #8E2DE2 0%, #4A00E0 100%);
-  color: #fff;
-  margin-top: 50px;
   font-size: 16px;
   font-weight: 700;
+  margin-top: 50px;
+  outline: none;
+  padding: 20px 46px;
   text-align: center;
-  border-radius: 50px;
 
   @include respond(desktop) {
-    padding: 30px 80px;
     font-size: 20px;
+    padding: 30px 80px;
   }
 
   &.-small {
@@ -162,6 +206,10 @@ body {
 
   @include respond(desktop) {
     font-size: 54px;
+  }
+
+  &.-indent-left {
+    padding-left: 20px;
   }
 
   &.-left {
@@ -185,17 +233,17 @@ body {
 }
 
 .sl-main-content {
-  margin-top: -180px;
   background-color: #1C2056;
-  position: relative;
+  margin-top: -180px;
   padding: 40px 20px;
+  position: relative;
 
   @include respond(mobile-large) {
     padding: 128px 100px;
   }
 
   @include respond(desktop) {
-    padding: 128px 118px;
+    padding: 128px 108px;
   }
 
   &.-launch-page {
@@ -210,55 +258,43 @@ body {
 }
 
 .sl-shifter {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .sl-shifter-item {
-  width: calc(100%);
-
-  @include respond(mobile-medium mobile-large) {
-    width: calc(50% - 15px);
-
-    &:not(:first-child) {
-      padding-left: 15px;
-    }
-  }
-
-  @include respond(desktop) {
-    width: calc(33% - 18px);
-
-    &:not(:first-child) {
-      padding-left: 15px;
-    }
-  }
+  outline: 0;
+  padding: 0 10px;
+  width: 100%;
 }
 
 .sl-arrows-container {
-  text-align: center;
-  margin-top: 10px;
+  float: right;
   margin-bottom: 20px;
+  margin-top: 10px;
+  padding-right: 20px;
+  text-align: center;
 
-  @include respond(mobile-large desktop) {
-    float: right;
+  @include respond(mobile-small mobile-medium) {
+    display: none;
   }
 
   > .arrow {
-    width: 56px;
-    height: 28px;
     display: inline-block;
+    height: 28px;
+    width: 56px;
 
     &.-left {
       background-image: url('./images/arrow-left.svg');
       margin-right: 46px;
 
       &:hover {
-        cursor: pointer;
         background-image: url('./images/arrow-left-hover.svg');
+        cursor: pointer;
       }
     }
 
@@ -266,27 +302,27 @@ body {
       background-image: url('./images/arrow-right.svg');
 
       &:hover {
-        cursor: pointer;
         background-image: url('./images/arrow-right-hover.svg');
+        cursor: pointer;
       }
     }
   }
 }
 
 .sl-image-container {
-  max-width: 100%;
   max-height: 100%;
-  width: 580px;
-  position: relative;
+  max-width: 100%;
   overflow: hidden;
+  position: relative;
+  width: 580px;
 
   &:before {
     content: '';
     display: block;
-    position: relative;
-    top: 0;
     left: 0;
     padding-top: 56%;
+    position: relative;
+    top: 0;
   }
 
   &.-events {
@@ -298,9 +334,10 @@ body {
   }
 
   .image {
-    position: absolute;
     left: 0;
+    position: absolute;
     top: 0;
+    user-select: none;
     width: 100%;
   }
 }
@@ -310,67 +347,62 @@ body {
   text-decoration: none;
 }
 
-.sl-date {
-  font-weight: 500;
-  font-size: 12px;
-  font-style: italic;
-  color: #fff;
-  padding: 10px 20px;
+.sl-chip {
   background: #4A00E0;
   border-radius: 50px;
-  max-width: 60%;
-  text-align: center;
-  margin-top: 20px;
+  color: #fff;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 500;
   margin-bottom: 30px;
+  margin-top: 20px;
+  max-width: none;
+  padding: 10px 15px;
+  text-align: center;
 
-  @include respond(mobile-medium) {
-    padding: 10px 12px;
-    max-width: none;
-  }
-
-  @include respond(desktop-medium) {
-    padding: 10px 20px;
+  @include respond(mobile-large desktop-small) {
     font-size: 12px;
-    min-width: auto;
     margin-bottom: 30px;
+    max-width: 60%;
+    min-width: auto;
   }
 
-  @include respond(desktop-large) {
-    padding: 10px 30px;
+  @include respond(desktop-medium desktop-large) {
     font-size: 18px;
-    min-width: 224px;
     margin-bottom: 30px;
+    max-width: 60%;
+    min-width: 224px;
   }
 
   &.-features {
     display: inline-block;
-    width: auto;
-    text-transform: uppercase;
-    max-width: none;
-    margin-top: 0;
     margin-bottom: 20px;
     margin-right: 10px;
+    margin-top: 0;
+    max-width: none;
+    text-transform: uppercase;
+    width: auto;
   }
 
   &.-last-feature {
-    margin-top: 0;
     margin-bottom: 30px;
+    margin-top: 0;
   }
 
   &.-center-offset {
-    position: absolute;
-    padding: 4px 0;
     left: 50%;
-    transform: translateX(-50%);
-    top: -49px;
     margin-top: 0;
+    padding: 4px 0;
+    position: absolute;
+    top: -49px;
+    transform: translateX(-50%);
     width: 164px;
 
     @include respond(desktop-small desktop-medium) {
-      padding: 10px 15px;
       font-size: 14px;
-      min-width: auto;
       margin-bottom: 30px;
+      min-width: auto;
+      padding: 10px 15px;
       top: -56px;
       width: 190px;
     }
@@ -378,8 +410,8 @@ body {
     @include respond(desktop-large) {
       font-size: 18px;
       padding: 10px 30px;
-      width: auto;
       top: -60px;
+      width: auto;
     }
   }
 
@@ -389,11 +421,11 @@ body {
 }
 
 .sl-events-title {
-  padding: 0 10px;
+  color: #fff;
   font-size: 20px;
   font-weight: 700;
-  color: #fff;
   line-height: 1.5;
+  padding: 0 10px;
   position: relative;
 
   @include respond(desktop) {
@@ -405,9 +437,9 @@ body {
   }
 
   &.-center-offset {
+    margin-bottom: 38px;
     margin-top: 36px;
     text-align: center;
-    margin-bottom: 38px;
   }
 }
 
@@ -417,12 +449,13 @@ body {
 
 .sl-upcoming-events {
   display: flex;
-  justify-content: space-between;
   flex-flow: wrap;
+  justify-content: space-between;
+  padding: 0 10px;
 
   > .event {
-    width: 100%;
     position: relative;
+    width: 100%;
 
     @include respond(mobile-medium mobile-large desktop) {
       width: calc(50% - 20px);
@@ -432,55 +465,54 @@ body {
 
 .sl-footer {
   color: #fff;
-  padding: 96px 45px;
   display: flex;
   justify-content: space-between;
+  padding: 96px 55px;
 
   @include respond(mobile-large desktop) {
-    padding: 96px 118px;
+    padding: 96px 128px;
   }
 
   > .logo-container {
     position: relative;
 
     > .logo {
-      position: absolute;
-      bottom: -18px;
-      left: 50%;
-      transform: translateX(-50%);
       background-image: url('./images/logo.svg');
-      background-size: cover;
       background-repeat: no-repeat;
-      width: 53px;
+      background-size: cover;
+      bottom: -18px;
       height: 60px;
+      left: 50%;
+      position: absolute;
+      width: 53px;
       z-index: 10;
     }
   }
 }
 
 .sl-timer {
-  width: 280px;
-  height: 100px;
   background-color: #4A00E0;
-  text-align: center;
   color: #fff;
-  position: relative;
+  height: 100px;
   margin: 40px auto;
+  position: relative;
+  text-align: center;
+  width: 280px;
 
   @include respond(desktop) {
-    width: 780px;
     height: 182px;
+    width: 780px;
   }
 
   > .time {
-    position: absolute;
+    font-family: helvetica, monospace;
     font-size: 26px;
     font-weight: 800;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    position: absolute;
     top: 50%;
+    transform: translateX(-50%) translateY(-50%);
     width: 100%;
-    font-family: helvetica, monospace;
 
     @include respond(desktop) {
       font-size: 78px;
@@ -489,12 +521,12 @@ body {
   }
 }
 .sl-player-container {
-  max-width: 100%;
-  width: 1180px;
-  padding-bottom: 59%;
   margin-bottom: 100px;
-  position: relative;
+  max-width: 100%;
   overflow: hidden;
+  padding-bottom: 59%;
+  position: relative;
+  width: 1180px;
 
   > div {
     position: absolute;
@@ -514,6 +546,52 @@ body {
 }
 
 .sl-map-container {
-  max-width: 1180px;
   margin: 0 auto;
+  max-width: 1180px;
+  position: relative;
+}
+
+.sl-warning {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 100px auto;
+  text-align: center;
+}
+
+.rec-carousel-item:focus {
+  outline: none;
+}
+
+button.rec-dot {
+  box-shadow: 0 0 1px 3px #fff;
+
+  @include respond(mobile-large desktop) {
+    display: none;
+  }
+
+  &:focus {
+    box-shadow: 0 0 1px 3px #fff;
+  }
+}
+
+button.rec-dot_active {
+  background-color: #fff;
+}
+
+.sl-map-container {
+  margin-top: 100px;
+  max-width: 100%;
+  overflow: hidden;
+  padding-bottom: 42%;
+  position: relative;
+  width: 1180px;
+
+  > div {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
 }
