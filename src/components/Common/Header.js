@@ -48,7 +48,7 @@ export const HeaderContent = (props) => {
                     {
                         isHomePage
                             ? (
-                                <button className="sl-btn">
+                                <button className="sl-btn -indent-top">
                                     Show All Launches
                                 </button>
                             )
