@@ -12,7 +12,7 @@ export const HeaderContent = (props) => {
     } = props;
     const date = timer ? new Date(currentLaunch.net) : null;
 
-    const Completion = () => <span>LAUNCH!!!</span>;
+    const Completion = () => <div className="sl-launch-completed">Already Launched!!!</div>;
     const renderer = ({ days, hours, minutes, seconds, completed }) => {
         const formatted = [days, hours, minutes, seconds].map((item) => item.toLocaleString('en-US', {
             minimumIntegerDigits: 2,
