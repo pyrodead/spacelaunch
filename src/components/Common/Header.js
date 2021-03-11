@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Countdown from "react-countdown";
+import Timer from '../Timer';
 import { NavLink } from 'react-router-dom';
 
 export const HeaderContent = (props) => {
@@ -12,29 +12,8 @@ export const HeaderContent = (props) => {
     } = props;
     const date = timer ? new Date(currentLaunch.net) : null;
 
-    const Completion = () => <div className="sl-launch-completed">Already Launched!!!</div>;
-    const renderer = ({ days, hours, minutes, seconds, completed }) => {
-        const formatted = [days, hours, minutes, seconds].map((item) => item.toLocaleString('en-US', {
-            minimumIntegerDigits: 2,
-        }));
-
-        if (completed) {
-            // Render a complete state
-            return <Completion />;
-        } else {
-            // Render a countdown
-            return (
-                <div className="sl-timer">
-                    <span className="time">
-                        {formatted.join(' : ')}
-                    </span>
-                </div>
-            );
-        }
-    };
-
     return (
-        <header className="sl-header">
+        <header className={`sl-header${isHomePage ? ' -homepage' : ''}`}>
             <div className="sl-content-wrapper">
                 <div className="sl-header-content">
                     { isHomePage ? null : <NavLink to={'/'} className="sl-nav-btn">Back to Home</NavLink>}
@@ -57,7 +36,7 @@ export const HeaderContent = (props) => {
                     {
                         timer
                             ? (
-                                <Countdown date={date} renderer={renderer} />
+                                <Timer date={date} />
                             )
                             : null
                     }

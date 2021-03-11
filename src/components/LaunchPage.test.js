@@ -142,7 +142,7 @@ const upcomingLaunches = {
     ],
 };
 
-const currentLaunch = {
+export const currentLaunch = {
     "id": "test",
     "url": "http://spacelaunchnow.me/api/ll/2.2.0/launch/896d876d-e834-4810-8a5e-44d6b6a42630/",
     "launch_library_id": null,

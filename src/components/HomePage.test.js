@@ -5,7 +5,7 @@ import UpcomingEvents from './UpcomingEvents';
 
 describe('should render a HomePage', () => {
     const wrapper = shallow(
-        <HomePage/>,
+        <HomePage />,
     );
 
     it('should render without errors', () => {
