@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/spacelaunch/static/css/main.371369ec.chunk.css",
-    "main.js": "/spacelaunch/static/js/main.e412691e.chunk.js",
-    "main.js.map": "/spacelaunch/static/js/main.e412691e.chunk.js.map",
+    "main.css": "/spacelaunch/static/css/main.c8a3eec9.chunk.css",
+    "main.js": "/spacelaunch/static/js/main.084ff586.chunk.js",
+    "main.js.map": "/spacelaunch/static/js/main.084ff586.chunk.js.map",
     "runtime-main.js": "/spacelaunch/static/js/runtime-main.262e2977.js",
     "runtime-main.js.map": "/spacelaunch/static/js/runtime-main.262e2977.js.map",
     "static/js/2.28bbc687.chunk.js": "/spacelaunch/static/js/2.28bbc687.chunk.js",
@@ -10,15 +10,15 @@
     "index.html": "/spacelaunch/index.html",
     "service-worker.js": "/spacelaunch/service-worker.js",
     "service-worker.js.map": "/spacelaunch/service-worker.js.map",
-    "static/css/main.371369ec.chunk.css.map": "/spacelaunch/static/css/main.371369ec.chunk.css.map",
+    "static/css/main.c8a3eec9.chunk.css.map": "/spacelaunch/static/css/main.c8a3eec9.chunk.css.map",
     "static/js/2.28bbc687.chunk.js.LICENSE.txt": "/spacelaunch/static/js/2.28bbc687.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/spacelaunch/static/media/logo.561a509f.svg",
-    "static/media/placeholder1.64554c7f.png": "/spacelaunch/static/media/placeholder1.64554c7f.png"
+    "static/media/placeholder1.0fa917bb.png": "/spacelaunch/static/media/placeholder1.0fa917bb.png"
   },
   "entrypoints": [
     "static/js/runtime-main.262e2977.js",
     "static/js/2.28bbc687.chunk.js",
-    "static/css/main.371369ec.chunk.css",
-    "static/js/main.e412691e.chunk.js"
+    "static/css/main.c8a3eec9.chunk.css",
+    "static/js/main.084ff586.chunk.js"
   ]
 }
