@@ -9,9 +9,7 @@ body {
 }
 
 .sl-header {
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0) 20%, #181B48), url('./images/header2.jpg');
-  background-position: center center;
-  background-repeat: no-repeat;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, #181B48), url('./images/header2.jpg') no-repeat;
   background-size: cover;
   position: relative;
   width: 100%;

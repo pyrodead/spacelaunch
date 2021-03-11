@@ -8,7 +8,7 @@ export const getMoreLaunches = (offset) => {
     return axios.get(`https://spacelaunchnow.me/api/3.3.0/launch/upcoming/?mode=detailed&offset=${offset}`);
 };
 
-export const getRecentEvents = () => {
+export const getUpcomingEvents = () => {
     return axios.get('https://spacelaunchnow.me/api/3.3.0/event/upcoming/');
 };
 

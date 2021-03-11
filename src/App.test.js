@@ -2,7 +2,7 @@ import React from "react";
 import { shallow, mount } from 'enzyme';
 import { AppContent } from "./App";
 import axios from "axios";
-import { getUpcomingLaunches, getRecentEvents } from './utils/utils';
+import { getUpcomingLaunches, getUpcomingEvents } from './utils/utils';
 import { Route, Redirect } from "react-router-dom";
 
 jest.mock('axios');
@@ -27,31 +27,27 @@ describe('should render a HomePage', () => {
     it('should test useEffect with promise.resolve', async() => {
         const setUpcomingLaunchesConnectActionCreator = defaultProps.setUpcomingLaunchesConnect;
         const setUpcomingEventsConnectActionCreator = defaultProps.setUpcomingEventsConnect;
-        const setInitializedConnectConnectActionCreator = defaultProps.setInitializedConnect;
+        const setInitializedConnectActionCreator = defaultProps.setInitializedConnect;
 
-        jest.spyOn(React, 'useEffect').mockImplementation(f => f());
-        axios.get.mockImplementation(() => Promise.resolve({ status: 200 }))
+        axios.get.mockImplementation(() => Promise.resolve({ status: 200, data: 'data' }))
         wrapper = mount(<AppContent {...defaultProps} />);
 
-        const resp1 = await getUpcomingLaunches();
+        await getUpcomingLaunches();
         expect(setUpcomingLaunchesConnectActionCreator).toHaveBeenCalled();
-        const resp2 = await getRecentEvents();
+        await getUpcomingEvents();
         expect(setUpcomingEventsConnectActionCreator).toHaveBeenCalled();
-        await Promise.all([resp1, resp2]);
-        expect(setInitializedConnectConnectActionCreator).toHaveBeenCalled();
     })
 
     it('should test useEffect with promise.reject', async() => {
         const setUpcomingLaunchesConnectActionCreator = defaultProps.setUpcomingLaunchesConnect;
         const setUpcomingEventsConnectActionCreator = defaultProps.setUpcomingEventsConnect;
 
-        jest.spyOn(React, 'useEffect').mockImplementation(f => f());
         axios.get.mockImplementation(() => Promise.reject(new Error('error message')))
         wrapper = mount(<AppContent {...defaultProps} />);
 
         await expect(getUpcomingLaunches()).rejects.toThrow('error message');
         expect(setUpcomingLaunchesConnectActionCreator).toHaveBeenCalled();
-        await expect(getRecentEvents()).rejects.toThrow('error message');
+        await expect(getUpcomingEvents()).rejects.toThrow('error message');
         expect(setUpcomingEventsConnectActionCreator).toHaveBeenCalled();
     })
 

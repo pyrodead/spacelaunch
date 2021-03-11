@@ -11,21 +11,17 @@ import PropTypes from "prop-types";
 export const LaunchPageContent = (props) => {
     const {
         currentLaunch,
+        upcomingLaunches,
         match: { params: { launchId } },
+        setCurrentLaunchConnect,
     } = props;
 
     useEffect(() => {
-        const {
-            upcomingLaunches,
-            match: { params: { launchId } },
-            setCurrentLaunchConnect,
-        } = props;
-
-        if(launchId) {
+        if (launchId) {
             const currentLaunch = upcomingLaunches.results.filter((item) => item.id === launchId);
             setCurrentLaunchConnect(currentLaunch[0]);
         }
-    });
+    }, [setCurrentLaunchConnect, upcomingLaunches, launchId]);
 
     if (currentLaunch?.id !== launchId) {
         return (

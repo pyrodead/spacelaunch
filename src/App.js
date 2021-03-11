@@ -9,7 +9,7 @@ import {
 } from './actions';
 import {
     getUpcomingLaunches,
-    getRecentEvents,
+    getUpcomingEvents,
 } from './utils/utils'
 import { connect } from 'react-redux';
 import {
@@ -27,40 +27,43 @@ export const AppContent = (props) => {
         setUpcomingLaunchesConnect,
         setInitializedConnect,
         setUpcomingEventsConnect,
+        initialized,
     } = props;
 
     useEffect(() => {
         // Added dummy json, API is down 90% of the time
-        const launches = getUpcomingLaunches()
-            .then((response) => {
-                if (response.status === 200) {
-                    setUpcomingLaunchesConnect(response.data);
-                }
-            })
-            .catch(() => {
-                setUpcomingLaunchesConnect(jsonLaunches);
-            });
+        const fetchData = async () => {
+            const launches = () => getUpcomingLaunches()
+                .then((response) => {
+                    if (response.status === 200) {
+                        setUpcomingLaunchesConnect(response.data);
+                    }
+                })
+                .catch(() => {
+                    setUpcomingLaunchesConnect(jsonLaunches);
+                });
 
-        const events = getRecentEvents()
-            .then((response) => {
-                if (response.status === 200) {
-                    setUpcomingEventsConnect(response.data);
-                }
-            })
-            .catch(() => {
-                setUpcomingEventsConnect(jsonEvents);
-            });
+            const events = () => getUpcomingEvents()
+                .then((response) => {
+                    if (response.status === 200) {
+                        setUpcomingEventsConnect(response.data);
+                    }
+                })
+                .catch(() => {
+                    setUpcomingEventsConnect(jsonEvents);
+                });
 
-        Promise.all([launches, events])
-            .then((resp) => {
-                setInitializedConnect(true);
-            })
-            .catch(() => {
-                setInitializedConnect(true);
-            });
-    })
+            return Promise.all([launches(), events()]);
+        }
 
-    const {initialized} = props;
+        fetchData().then(() => {
+            setInitializedConnect(true);
+        });
+    }, [
+        setUpcomingLaunchesConnect,
+        setInitializedConnect,
+        setUpcomingEventsConnect,
+    ])
 
     if (!initialized) {
         return null;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
     getUpcomingLaunches,
-    getRecentEvents,
+    getUpcomingEvents,
     getMoreLaunches,
     createDateAsUTC,
     getNumberOfSlides,
@@ -26,12 +26,12 @@ describe('Test utils', () => {
         await expect(getMoreLaunches()).resolves.toEqual(data);
     });
 
-    it('getRecentEvents', async() => {
+    it('getUpcomingEvents', async() => {
         const data = {test: 'test'};
 
         axios.get.mockImplementationOnce(() => Promise.resolve(data));
 
-        await expect(getRecentEvents()).resolves.toEqual(data);
+        await expect(getUpcomingEvents()).resolves.toEqual(data);
     });
 
     it('createDateAsUTC', () => {
